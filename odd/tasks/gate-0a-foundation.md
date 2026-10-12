@@ -47,3 +47,5 @@ L6 — Android evidence: `pnpm tauri android init` passed; the official Android 
 L7 — Closure: Gate 0A is locally implemented and verified. The owner must review/accept the preview and later run the CI workflow from a Git push before Gate 0A is formally closed.
 
 Risk: item 5 (the Tauri/toolchain, Android skeleton, and CI foundation affect build and delivery environments; hosted CI remains unexecuted).
+
+L8 — CI correction: added the `rustfmt` component to the pinned Rust toolchain, stopped `setup-android` from installing the obsolete default `tools` package by passing the required SDK packages explicitly, and installed all Android Rust targets in the Android job. Preflight YAML formatting passed with Prettier 3.6.2; hosted execution remains pending.

@@ -33,6 +33,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@1.99.0
         with:
           targets: x86_64-pc-windows-msvc
+          components: rustfmt
       - run: cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
       - run: cargo test --manifest-path src-tauri/Cargo.toml
       - run: cargo check --manifest-path src-tauri/Cargo.toml
@@ -41,6 +42,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.99.0
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
       - uses: pnpm/action-setup@v4
         with:
           version: 12.3.4
@@ -53,7 +57,7 @@ jobs:
           distribution: temurin
           java-version: "21"
       - uses: android-actions/setup-android@v3
-      - name: Install Android SDK packages
-        run: sdkmanager "platform-tools" "platforms;android-37" "build-tools;37.0.0" "ndk;27.2.12479018"
+        with:
+          packages: "platform-tools platforms;android-37 build-tools;37.0.0 ndk;27.2.12479018"
       - run: pnpm install --frozen-lockfile
       - run: pnpm tauri android build --debug
