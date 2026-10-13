@@ -9,6 +9,7 @@
     "typecheck": "tsc -b",
     "test": "vitest",
     "test:run": "vitest run",
+    "test:ci": "node --test tests/verify-android-ci.mjs",
     "check:design": "node tests/check-design-paths.mjs",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",

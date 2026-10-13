@@ -23,6 +23,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm test:run
+      - run: pnpm test:ci
       - run: pnpm build
       - run: pnpm check:design
 
@@ -30,6 +31,15 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.3.4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.14.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
       - uses: dtolnay/rust-toolchain@1.99.0
         with:
           targets: x86_64-pc-windows-msvc
@@ -58,6 +68,8 @@ jobs:
           java-version: "21"
       - uses: android-actions/setup-android@v3
         with:
-          packages: "platform-tools platforms;android-37 build-tools;37.0.0 ndk;27.2.12479018"
+          packages: "platform-tools platforms;android-35 build-tools;35.0.0 ndk;27.2.12479018"
       - run: pnpm install --frozen-lockfile
+      - run: pnpm tauri android init
+      - run: node tests/prepare-android-ci.mjs
       - run: pnpm tauri android build --debug

@@ -57,7 +57,9 @@ mock todavía no está conectado.
 - [x] El SDK de Android está instalado y `pnpm tauri android init` genera el
       skeleton; el APK `arm64-v8a` compila con la desviación Windows documentada
       de copiar el `.so` en vez de crear el symlink.
-- [ ] La CI reproduce las verificaciones (pendiente de ejecutar en un push).
+- [ ] La CI reproduce las verificaciones (el último intento encontró bloqueos
+      en el SDK Android 37 y en el `dist/` faltante del job Rust; la corrección
+      local requiere una nueva ejecución hospedada).
 
 ## Escenario manual de esta etapa
 
