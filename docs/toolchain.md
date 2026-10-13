@@ -25,7 +25,7 @@ own logs; local checks alone do not establish a CI pass.
 | Java used by Gradle | JetBrains Runtime 21.0.10 | `src-tauri/gen/android/gradlew.bat --version` |
 | Gradle wrapper | 9.6.1 | `src-tauri/gen/android/gradle/wrapper/gradle-wrapper.properties` |
 | Android command-line tools | 19.0 | `sdkmanager --version` |
-| Android compile/target SDK | 37 locally (Tauri-generated), 35 in CI | generated `src-tauri/gen/android/app/build.gradle.kts` and `tests/prepare-android-ci.mjs` |
+| Android compile/target SDK | 37 locally (Tauri-generated), 36 in CI | generated `src-tauri/gen/android/app/build.gradle.kts` and `tests/prepare-android-ci.mjs` |
 | Android min SDK | 24 | `src-tauri/gen/android/app/build.gradle.kts` |
 | Android NDK | 27.2.12479018 | installed SDK directory and Tauri output |
 | Android ABI | `arm64-v8a` | debug APK output |
@@ -48,9 +48,9 @@ Cargo because the Tauri Rust build checks for the configured `../dist` path;
 jobs do not share a filesystem. `src-tauri/gen/` is ignored by Git, so the
 Android job runs `pnpm tauri android init` before building. Tauri 2.12 generates
 `compileSdk = 37` / `targetSdk = 37`; the hosted runner's SDK repository did
-not offer `platforms;android-37`. For this Gate 0A CI check, SDK 35 is
+not offer `platforms;android-37`. For this Gate 0A CI check, SDK 36 is
 installed and `tests/prepare-android-ci.mjs` changes both generated values to
-35 before the build. It refuses an unexpected Tauri template instead of
+36 before the build. It refuses an unexpected Tauri template instead of
 silently building against a mismatched SDK. This is a CI-only deviation from
 the locally generated SDK 37 and must be reconciled when the newer SDK becomes
 available to hosted runners.
@@ -88,7 +88,7 @@ downgrade. CI still needs to confirm the arm64 build on a hosted runner.
 
 - Windows desktop: Windows 10 1803 or newer.
 - macOS desktop: macOS 10.15 or newer.
-- Android: API 24 minimum, generated API 37 locally and CI API 35
+- Android: API 24 minimum, generated API 37 locally and CI API 36
   compile/target for Gate 0A, `arm64-v8a` in v1. The eventual release target
   API is not proven by this CI workaround.
 - Linux: distribution matrix remains the Stage 4A acceptance concern.

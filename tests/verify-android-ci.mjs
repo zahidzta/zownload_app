@@ -27,7 +27,7 @@ function runWithTemplate(template) {
 test("sets both generated SDK levels to the installed CI platform", () => {
   const { result, contents } = runWithTemplate("compileSdk = 37\n    targetSdk = 37\nminSdk = 24\n");
   assert.equal(result.status, 0, result.stderr);
-  assert.equal(contents, "compileSdk = 35\n    targetSdk = 35\nminSdk = 24\n");
+  assert.equal(contents, "compileSdk = 36\n    targetSdk = 36\nminSdk = 24\n");
 });
 
 test("rejects changed Tauri templates without partially modifying the file", () => {
@@ -49,5 +49,6 @@ test("rejects duplicate SDK assignments without modifying the file", () => {
 test("CI builds the supported arm64 debug APK and uses maintained Java setup", () => {
   const workflow = readFileSync(fileURLToPath(new URL("../.github/workflows/ci.yml", import.meta.url)), "utf8");
   assert.match(workflow, /uses: actions\/setup-java@v5/);
+  assert.match(workflow, /platforms;android-36/);
   assert.match(workflow, /run: pnpm tauri android build --debug --target aarch64 --verbose/);
 });

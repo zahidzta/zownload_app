@@ -68,7 +68,7 @@ jobs:
           java-version: "21"
       - uses: android-actions/setup-android@v3
         with:
-          packages: "platform-tools platforms;android-35 build-tools;35.0.0 ndk;27.2.12479018"
+          packages: "platform-tools platforms;android-36 build-tools;36.0.0 ndk;27.2.12479018"
       - run: pnpm install --frozen-lockfile
       - run: pnpm tauri android init
       - run: node tests/prepare-android-ci.mjs

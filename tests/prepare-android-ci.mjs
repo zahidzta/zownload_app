@@ -7,7 +7,7 @@ const gradleFile = fileURLToPath(
 let contents = readFileSync(gradleFile, "utf8");
 
 // Tauri 2.12 generates SDK 37, which is not available to this CI runner.
-// Keep the generated project's compile/target SDK aligned with the SDK 35
+// Keep the generated project's compile/target SDK aligned with the SDK 36
 // packages installed by the workflow; fail rather than silently missing a new template.
 const keys = ["compileSdk", "targetSdk"];
 for (const key of keys) {
@@ -19,8 +19,8 @@ for (const key of keys) {
 
 for (const key of keys) {
   const pattern = new RegExp(`^([ \\t]*${key}[ \\t]*=[ \\t]*)37([ \\t]*)$`, "m");
-  contents = contents.replace(pattern, (_, prefix, suffix) => `${prefix}35${suffix}`);
+  contents = contents.replace(pattern, (_, prefix, suffix) => `${prefix}36${suffix}`);
 }
 
 writeFileSync(gradleFile, contents);
-console.log("Generated Android compileSdk and targetSdk set to 35 for CI.");
+console.log("Generated Android compileSdk and targetSdk set to 36 for CI.");
