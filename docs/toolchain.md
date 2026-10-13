@@ -77,6 +77,13 @@ This fallback is a Gate 0A environment deviation, not production Android
 engine behavior. The generated debug APK was inspected to contain
 `lib/arm64-v8a/libzownload_lib.so`.
 
+The CI Android job builds only `aarch64` (the v1 supported ABI) rather than
+the default universal variant, using verbose logging to expose the exact
+Gradle failure if it recurs. It uses `actions/setup-java@v5` with Java 21.
+The Kotlin `PluginHandle.kt` diagnostic was a warning in the earlier local
+Gradle log, not evidence that the generated Kotlin or AGP versions need a
+downgrade. CI still needs to confirm the arm64 build on a hosted runner.
+
 ## Minimum platform baseline
 
 - Windows desktop: Windows 10 1803 or newer.

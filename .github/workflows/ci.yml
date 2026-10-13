@@ -54,7 +54,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@1.99.0
         with:
-          targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+          targets: aarch64-linux-android
       - uses: pnpm/action-setup@v4
         with:
           version: 12.3.4
@@ -62,7 +62,7 @@ jobs:
         with:
           node-version: 24.14.0
           cache: pnpm
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "21"
@@ -72,4 +72,4 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm tauri android init
       - run: node tests/prepare-android-ci.mjs
-      - run: pnpm tauri android build --debug
+      - run: pnpm tauri android build --debug --target aarch64 --verbose

@@ -45,3 +45,9 @@ test("rejects duplicate SDK assignments without modifying the file", () => {
   assert.match(result.stderr, /Expected exactly one generated compileSdk = 37/);
   assert.equal(contents, original);
 });
+
+test("CI builds the supported arm64 debug APK and uses maintained Java setup", () => {
+  const workflow = readFileSync(fileURLToPath(new URL("../.github/workflows/ci.yml", import.meta.url)), "utf8");
+  assert.match(workflow, /uses: actions\/setup-java@v5/);
+  assert.match(workflow, /run: pnpm tauri android build --debug --target aarch64 --verbose/);
+});
